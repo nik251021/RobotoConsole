@@ -4,31 +4,26 @@ import (
 	"fmt"
 	"strings"
 	"time"
-)
 
-const (
-	ColorReset  = "\033[0m"
-	ColorCyan   = "\033[36m"
-	ColorGreen  = "\033[32m"
-	ColorYellow = "\033[33m"
-	ColorRed    = "\033[31m"
+	"RobotoConsole/internal/config"
+	"RobotoConsole/internal/other"
 )
 
 func SelectDif() {
 	ClearScreen()
 
-	fmt.Println(ColorCyan + "=================================================" + ColorReset)
-	fmt.Println(ColorYellow + "  [ SYS_INIT: ALLOCATING CORE LIMITS (LUA_ENV) ]" + ColorReset)
-	fmt.Println(ColorCyan + "=================================================" + ColorReset)
+	fmt.Println(other.ColorCyan + "=================================================" + other.ColorReset)
+	fmt.Println(other.ColorYellow + "  [ SYS_INIT: ALLOCATING CORE LIMITS (LUA_ENV) ]" + other.ColorReset)
+	fmt.Println(other.ColorCyan + "=================================================" + other.ColorReset)
 
 	fmt.Println("[ MEMORY SECTOR ] System integrity severely damaged.")
 	fmt.Println("[ DIRECTORY RES ] Select available operational limits:")
 
-	fmt.Printf(" [%s1%s] %sEASY  %s| HDD: 1024KB | LUA_API: Basic   | Clock: 50Hz\n", ColorGreen, ColorReset, ColorGreen, ColorReset)
-	fmt.Printf(" [%s2%s] %sNORMAL%s| HDD: 512KB  | LUA_API: Limited | Clock: 25Hz\n", ColorCyan, ColorReset, ColorCyan, ColorReset)
-	fmt.Printf(" [%s3%s] %sHARD  %s| HDD: 256KB  | LUA_API: Minimal | Clock: 10Hz\n\n", ColorRed, ColorReset, ColorRed, ColorReset)
+	fmt.Printf(" [%s1%s] %sEASY  %s| HDD: 1024KB | LUA_API: Basic   | Clock: 50Hz\n", other.ColorGreen, other.ColorReset, other.ColorGreen, other.ColorReset)
+	fmt.Printf(" [%s2%s] %sNORMAL%s| HDD: 512KB  | LUA_API: Limited | Clock: 25Hz\n", other.ColorCyan, other.ColorReset, other.ColorCyan, other.ColorReset)
+	fmt.Printf(" [%s3%s] %sHARD  %s| HDD: 256KB  | LUA_API: Minimal | Clock: 10Hz\n\n", other.ColorRed, other.ColorReset, other.ColorRed, other.ColorReset)
 
-	fmt.Print(ColorCyan + "allocation_vector_> " + ColorReset)
+	fmt.Print(other.ColorCyan + "allocation_vector_> " + other.ColorReset)
 
 	var dif string
 	fmt.Scanln(&dif)
@@ -37,15 +32,19 @@ func SelectDif() {
 
 	switch choice {
 	case "1":
-		fmt.Println(ColorGreen + "\n[ OK ] Sector allocated. Environment: EASY." + ColorReset)
+		config.SetDifficulty(1)
+		fmt.Println(other.ColorGreen + "\n[ OK ] Sector allocated. Environment: EASY." + other.ColorReset)
 	case "2":
-		fmt.Println(ColorCyan + "\n[ OK ] Sector allocated. Environment: NORMAL." + ColorReset)
+		config.SetDifficulty(2)
+		fmt.Println(other.ColorCyan + "\n[ OK ] Sector allocated. Environment: NORMAL." + other.ColorReset)
 	case "3":
-		fmt.Println(ColorRed + "\n[ WARNING ] CRITICAL: Minimal sector allocated (HARD)." + ColorReset)
+		config.SetDifficulty(3)
+		fmt.Println(other.ColorRed + "\n[ WARNING ] CRITICAL: Minimal sector allocated (HARD)." + other.ColorReset)
 	default:
-		fmt.Println(ColorRed + "\n[ CRITICAL ERROR ] Allocation vector invalid. Rebooting core..." + ColorReset)
+		fmt.Println(other.ColorRed + "\n[ CRITICAL ERROR ] Allocation vector invalid. Rebooting core..." + other.ColorReset)
 		ConsoleBeep(1500 * time.Millisecond)
 		time.Sleep(2 * time.Second)
+
 		StartLoading()
 		return
 	}

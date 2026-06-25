@@ -29,7 +29,6 @@ func ShowBootLog() {
 
 	for _, line := range logLines {
 		fmt.Println(line)
-		// В цикле вызываем короткий "щелчок" (80 миллисекунд)
 		ConsoleBeep(80 * time.Millisecond)
 		time.Sleep(delay)
 	}
@@ -71,8 +70,6 @@ func StartLoading() {
 
 	time.Sleep(1 * time.Second)
 	ShowBootLog()
-	//Sellecting difficulty
-	//Initializing game
 	var login string
 	fmt.Scanln(&login)
 	if login != "login" {

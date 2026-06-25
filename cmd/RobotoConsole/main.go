@@ -8,4 +8,5 @@ import (
 func main() {
 	fmt.Println("Hello world!")
 	loading.StartLoading()
+	//Why do you watch this trash code XD
 }
