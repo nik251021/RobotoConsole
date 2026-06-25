@@ -71,5 +71,20 @@ func StartLoading() {
 
 	time.Sleep(1 * time.Second)
 	ShowBootLog()
-	time.Sleep(5 * time.Second)
+	//Sellecting difficulty
+	//Initializing game
+	var login string
+	fmt.Scanln(&login)
+	if login != "login" {
+		fmt.Println("Access not granded.")
+		time.Sleep(1 * time.Second)
+		ClearScreen()
+		ConsoleBeep(1 * time.Second)
+		return
+	}
+	fmt.Println("Access granted")
+	time.Sleep(1 * time.Second)
+	ClearScreen()
+	ConsoleBeep(1 * time.Second)
+	SelectDif()
 }
